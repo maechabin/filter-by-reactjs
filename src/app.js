@@ -50,8 +50,7 @@ class App extends Component {
     return (
       <div>
         <Form onValKeyUp={this.handleValKeyUp.bind(this)} />
-        <IdButton onClickAscend={this.handleAscend.bind(this)} onClickDescend={this.handleDescend.bind(this)} />
-        <NameButton onClickAscend={this.handleAscend.bind(this)} onClickDescend={this.handleDescend.bind(this)} />
+        <SortButton onClickAscend={this.handleAscend.bind(this)} onClickDescend={this.handleDescend.bind(this)} />
         <ul>
           {list}
         </ul>
@@ -61,50 +60,6 @@ class App extends Component {
 }
 App.propTypes = {
   data: React.PropTypes.array.isRequired
-}
-
-class IdButton extends Component {
-  ascend() {
-    this.props.onClickAscend('id');
-  }
-  descend() {
-    this.props.onClickDescend('id');
-  }
-  render() {
-    return (
-      <div>
-        <span style={{marginRight: '8px', fontSize: '12px'}}>Keyでソート:</span>
-        <button onClick={this.ascend.bind(this)}>昇順</button>
-        <button onClick={this.descend.bind(this)}>降順</button>
-      </div>
-    );
-  }
-}
-IdButton.propTypes = {
-  onClickAscend: React.PropTypes.func.isRequired,
-  onClickDescend: React.PropTypes.func.isRequired
-}
-
-class NameButton extends Component {
-  ascend() {
-    this.props.onClickAscend('name');
-  }
-  descend() {
-    this.props.onClickDescend('name');
-  }
-  render() {
-    return (
-      <div>
-        <span style={{marginRight: '8px', fontSize: '12px'}}>Valueでソート:</span>
-        <button onClick={this.ascend.bind(this)}>昇順</button>
-        <button onClick={this.descend.bind(this)}>降順</button>
-      </div>
-    );
-  }
-}
-NameButton.propTypes = {
-  onClickAscend: React.PropTypes.func.isRequired,
-  onClickDescend: React.PropTypes.func.isRequired
 }
 
 class Form extends Component {
@@ -123,6 +78,39 @@ class Form extends Component {
 }
 Form.propTypes = {
   onValKeyUp: React.PropTypes.func.isRequired
+}
+
+class SortButton extends Component {
+  sortByAscend(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    this.props.onClickAscend(e.target.value);
+  }
+  sortByDescend(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    this.props.onClickDescend(e.target.value);
+  }
+  render() {
+    return (
+      <div>
+        <div>
+          <span style={{marginRight: '8px', fontSize: '12px'}}>idでソート:</span>
+          <button onClick={this.sortByAscend.bind(this)} value='id'>昇順</button>
+          <button onClick={this.sortByDescend.bind(this)} value='id'>降順</button>
+        </div>
+        <div>
+          <span style={{marginRight: '8px', fontSize: '12px'}}>nameでソート:</span>
+          <button onClick={this.sortByAscend.bind(this)} value='name'>昇順</button>
+          <button onClick={this.sortByDescend.bind(this)} value='name'>降順</button>
+        </div>
+      </div>
+    );
+  }
+}
+SortButton.propTypes = {
+  onClickAscend: React.PropTypes.func.isRequired,
+  onClickDescend: React.PropTypes.func.isRequired
 }
 
 var data = [

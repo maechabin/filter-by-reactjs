@@ -19116,8 +19116,7 @@ var App = function (_Component) {
         'div',
         null,
         _react2.default.createElement(Form, { onValKeyUp: this.handleValKeyUp.bind(this) }),
-        _react2.default.createElement(IdButton, { onClickAscend: this.handleAscend.bind(this), onClickDescend: this.handleDescend.bind(this) }),
-        _react2.default.createElement(NameButton, { onClickAscend: this.handleAscend.bind(this), onClickDescend: this.handleDescend.bind(this) }),
+        _react2.default.createElement(SortButton, { onClickAscend: this.handleAscend.bind(this), onClickDescend: this.handleDescend.bind(this) }),
         _react2.default.createElement(
           'ul',
           null,
@@ -19134,112 +19133,8 @@ App.propTypes = {
   data: _react2.default.PropTypes.array.isRequired
 };
 
-var IdButton = function (_Component2) {
-  _inherits(IdButton, _Component2);
-
-  function IdButton() {
-    _classCallCheck(this, IdButton);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(IdButton).apply(this, arguments));
-  }
-
-  _createClass(IdButton, [{
-    key: 'ascend',
-    value: function ascend() {
-      this.props.onClickAscend('id');
-    }
-  }, {
-    key: 'descend',
-    value: function descend() {
-      this.props.onClickDescend('id');
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'span',
-          { style: { marginRight: '8px', fontSize: '12px' } },
-          'Keyでソート:'
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.ascend.bind(this) },
-          '昇順'
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.descend.bind(this) },
-          '降順'
-        )
-      );
-    }
-  }]);
-
-  return IdButton;
-}(_react.Component);
-
-IdButton.propTypes = {
-  onClickAscend: _react2.default.PropTypes.func.isRequired,
-  onClickDescend: _react2.default.PropTypes.func.isRequired
-};
-
-var NameButton = function (_Component3) {
-  _inherits(NameButton, _Component3);
-
-  function NameButton() {
-    _classCallCheck(this, NameButton);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(NameButton).apply(this, arguments));
-  }
-
-  _createClass(NameButton, [{
-    key: 'ascend',
-    value: function ascend() {
-      this.props.onClickAscend('name');
-    }
-  }, {
-    key: 'descend',
-    value: function descend() {
-      this.props.onClickDescend('name');
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'span',
-          { style: { marginRight: '8px', fontSize: '12px' } },
-          'Valueでソート:'
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.ascend.bind(this) },
-          '昇順'
-        ),
-        _react2.default.createElement(
-          'button',
-          { onClick: this.descend.bind(this) },
-          '降順'
-        )
-      );
-    }
-  }]);
-
-  return NameButton;
-}(_react.Component);
-
-NameButton.propTypes = {
-  onClickAscend: _react2.default.PropTypes.func.isRequired,
-  onClickDescend: _react2.default.PropTypes.func.isRequired
-};
-
-var Form = function (_Component4) {
-  _inherits(Form, _Component4);
+var Form = function (_Component2) {
+  _inherits(Form, _Component2);
 
   function Form() {
     _classCallCheck(this, Form);
@@ -19274,6 +19169,85 @@ var Form = function (_Component4) {
 
 Form.propTypes = {
   onValKeyUp: _react2.default.PropTypes.func.isRequired
+};
+
+var SortButton = function (_Component3) {
+  _inherits(SortButton, _Component3);
+
+  function SortButton() {
+    _classCallCheck(this, SortButton);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(SortButton).apply(this, arguments));
+  }
+
+  _createClass(SortButton, [{
+    key: 'sortByAscend',
+    value: function sortByAscend(e) {
+      e.preventDefault();
+      console.log(e.target.value);
+      this.props.onClickAscend(e.target.value);
+    }
+  }, {
+    key: 'sortByDescend',
+    value: function sortByDescend(e) {
+      e.preventDefault();
+      console.log(e.target.value);
+      this.props.onClickDescend(e.target.value);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'span',
+            { style: { marginRight: '8px', fontSize: '12px' } },
+            'idでソート:'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.sortByAscend.bind(this), value: 'id' },
+            '昇順'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.sortByDescend.bind(this), value: 'id' },
+            '降順'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'span',
+            { style: { marginRight: '8px', fontSize: '12px' } },
+            'nameでソート:'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.sortByAscend.bind(this), value: 'name' },
+            '昇順'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.sortByDescend.bind(this), value: 'name' },
+            '降順'
+          )
+        )
+      );
+    }
+  }]);
+
+  return SortButton;
+}(_react.Component);
+
+SortButton.propTypes = {
+  onClickAscend: _react2.default.PropTypes.func.isRequired,
+  onClickDescend: _react2.default.PropTypes.func.isRequired
 };
 
 var data = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }, { id: 4, name: 'qux' }, { id: 5, name: 'quux' }, { id: 6, name: 'foobar' }];
