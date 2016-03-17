@@ -11,9 +11,7 @@ class App extends Component {
   }
   handleValKeyUp(val) {
     let line = this.props.data.filter((item, index) => {
-      if ((item.id.toString()).indexOf(val) >= 0 || (item.name).indexOf(val) >= 0) {
-        return true;
-      }
+      return item.id.toString().indexOf(val) >= 0 || item.name.toLowerCase().indexOf(val) >= 0;
     });
     this.setState({
       data: line
@@ -83,12 +81,10 @@ Form.propTypes = {
 class SortButton extends Component {
   sortByAscend(e) {
     e.preventDefault();
-    console.log(e.target.value);
     this.props.onClickAscend(e.target.value);
   }
   sortByDescend(e) {
     e.preventDefault();
-    console.log(e.target.value);
     this.props.onClickDescend(e.target.value);
   }
   render() {

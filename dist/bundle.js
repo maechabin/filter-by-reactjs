@@ -19068,9 +19068,7 @@ var App = function (_Component) {
     key: 'handleValKeyUp',
     value: function handleValKeyUp(val) {
       var line = this.props.data.filter(function (item, index) {
-        if (item.id.toString().indexOf(val) >= 0 || item.name.indexOf(val) >= 0) {
-          return true;
-        }
+        return item.id.toString().indexOf(val) >= 0 || item.name.toLowerCase().indexOf(val) >= 0;
       });
       this.setState({
         data: line
@@ -19184,14 +19182,12 @@ var SortButton = function (_Component3) {
     key: 'sortByAscend',
     value: function sortByAscend(e) {
       e.preventDefault();
-      console.log(e.target.value);
       this.props.onClickAscend(e.target.value);
     }
   }, {
     key: 'sortByDescend',
     value: function sortByDescend(e) {
       e.preventDefault();
-      console.log(e.target.value);
       this.props.onClickDescend(e.target.value);
     }
   }, {
