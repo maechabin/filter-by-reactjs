@@ -9,15 +9,15 @@ class App extends Component {
       data: props.data
     };
   }
-  handleValKeyUp(val) {
-    let line = this.props.data.filter((item, index) => {
+  handleFilterVal(val) {
+    let line = this.props.data.filter((item) => {
       return item.id.toString().indexOf(val) >= 0 || item.name.toLowerCase().indexOf(val) >= 0;
     });
     this.setState({
       data: line
     });
   }
-  handleAscend(key) {
+  handleSortByAscend(key) {
     let line = this.state.data.sort((a, b) => {
       if(a[key] < b[key]) return -1;
       if(a[key] > b[key]) return 1;
@@ -27,7 +27,7 @@ class App extends Component {
       data: line
     });
   }
-  handleDescend(key) {
+  handleSortByDescend(key) {
     let line = this.state.data.sort((a, b) => {
       if(a[key] < b[key]) return 1;
       if(a[key] > b[key]) return -1;
@@ -47,8 +47,11 @@ class App extends Component {
     });
     return (
       <div>
-        <Form onValKeyUp={this.handleValKeyUp.bind(this)} />
-        <SortButton onClickAscend={this.handleAscend.bind(this)} onClickDescend={this.handleDescend.bind(this)} />
+        <Form onFilterVal={this.handleFilterVal.bind(this)} />
+        <SortButton
+          onSortByAscend={this.handleSortByAscend.bind(this)}
+          onSortByDescend={this.handleSortByDescend.bind(this)}
+        />
         <ul>
           {list}
         </ul>
@@ -61,55 +64,55 @@ App.propTypes = {
 }
 
 class Form extends Component {
-  search() {
+  _filterVal() {
     let val = this.refs.myinput.value;
-    this.props.onValKeyUp(val);
+    this.props.onFilterVal(val);
   }
   render() {
     return (
       <div>
         <span style={{marginRight: '8px', fontSize: '12px'}}>キーワードで絞り込む:</span>
-        <input type='text' value={this.props.text} ref='myinput' onKeyUp={this.search.bind(this)} />
+        <input type='text' value={this.props.text} ref='myinput' onKeyUp={this._filterVal.bind(this)} />
       </div>
     );
   }
 }
 Form.propTypes = {
-  onValKeyUp: React.PropTypes.func.isRequired
+  onFilterVal: React.PropTypes.func.isRequired
 }
 
 class SortButton extends Component {
-  sortByAscend(e) {
+  _sortByAscend(e) {
     e.preventDefault();
-    this.props.onClickAscend(e.target.value);
+    this.props.onSortByAscend(e.target.value);
   }
-  sortByDescend(e) {
+  _sortByDescend(e) {
     e.preventDefault();
-    this.props.onClickDescend(e.target.value);
+    this.props.onSortByDescend(e.target.value);
   }
   render() {
     return (
       <div>
         <div>
           <span style={{marginRight: '8px', fontSize: '12px'}}>idでソート:</span>
-          <button onClick={this.sortByAscend.bind(this)} value='id'>昇順</button>
-          <button onClick={this.sortByDescend.bind(this)} value='id'>降順</button>
+          <button onClick={this._sortByAscend.bind(this)} value='id'>昇順</button>
+          <button onClick={this._sortByDescend.bind(this)} value='id'>降順</button>
         </div>
         <div>
           <span style={{marginRight: '8px', fontSize: '12px'}}>nameでソート:</span>
-          <button onClick={this.sortByAscend.bind(this)} value='name'>昇順</button>
-          <button onClick={this.sortByDescend.bind(this)} value='name'>降順</button>
+          <button onClick={this._sortByAscend.bind(this)} value='name'>昇順</button>
+          <button onClick={this._sortByDescend.bind(this)} value='name'>降順</button>
         </div>
       </div>
     );
   }
 }
 SortButton.propTypes = {
-  onClickAscend: React.PropTypes.func.isRequired,
-  onClickDescend: React.PropTypes.func.isRequired
+  onSortByAscend: React.PropTypes.func.isRequired,
+  onSortByDescend: React.PropTypes.func.isRequired
 }
 
-var data = [
+let data = [
   {id: 1, name: 'foo'},
   {id: 2, name: 'bar'},
   {id: 3, name: 'baz'},

@@ -19065,9 +19065,9 @@ var App = function (_Component) {
   }
 
   _createClass(App, [{
-    key: 'handleValKeyUp',
-    value: function handleValKeyUp(val) {
-      var line = this.props.data.filter(function (item, index) {
+    key: 'handleFilterVal',
+    value: function handleFilterVal(val) {
+      var line = this.props.data.filter(function (item) {
         return item.id.toString().indexOf(val) >= 0 || item.name.toLowerCase().indexOf(val) >= 0;
       });
       this.setState({
@@ -19075,8 +19075,8 @@ var App = function (_Component) {
       });
     }
   }, {
-    key: 'handleAscend',
-    value: function handleAscend(key) {
+    key: 'handleSortByAscend',
+    value: function handleSortByAscend(key) {
       var line = this.state.data.sort(function (a, b) {
         if (a[key] < b[key]) return -1;
         if (a[key] > b[key]) return 1;
@@ -19087,8 +19087,8 @@ var App = function (_Component) {
       });
     }
   }, {
-    key: 'handleDescend',
-    value: function handleDescend(key) {
+    key: 'handleSortByDescend',
+    value: function handleSortByDescend(key) {
       var line = this.state.data.sort(function (a, b) {
         if (a[key] < b[key]) return 1;
         if (a[key] > b[key]) return -1;
@@ -19113,8 +19113,11 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(Form, { onValKeyUp: this.handleValKeyUp.bind(this) }),
-        _react2.default.createElement(SortButton, { onClickAscend: this.handleAscend.bind(this), onClickDescend: this.handleDescend.bind(this) }),
+        _react2.default.createElement(Form, { onFilterVal: this.handleFilterVal.bind(this) }),
+        _react2.default.createElement(SortButton, {
+          onSortByAscend: this.handleSortByAscend.bind(this),
+          onSortByDescend: this.handleSortByDescend.bind(this)
+        }),
         _react2.default.createElement(
           'ul',
           null,
@@ -19141,10 +19144,10 @@ var Form = function (_Component2) {
   }
 
   _createClass(Form, [{
-    key: 'search',
-    value: function search() {
+    key: '_filterVal',
+    value: function _filterVal() {
       var val = this.refs.myinput.value;
-      this.props.onValKeyUp(val);
+      this.props.onFilterVal(val);
     }
   }, {
     key: 'render',
@@ -19157,7 +19160,7 @@ var Form = function (_Component2) {
           { style: { marginRight: '8px', fontSize: '12px' } },
           'キーワードで絞り込む:'
         ),
-        _react2.default.createElement('input', { type: 'text', value: this.props.text, ref: 'myinput', onKeyUp: this.search.bind(this) })
+        _react2.default.createElement('input', { type: 'text', value: this.props.text, ref: 'myinput', onKeyUp: this._filterVal.bind(this) })
       );
     }
   }]);
@@ -19166,7 +19169,7 @@ var Form = function (_Component2) {
 }(_react.Component);
 
 Form.propTypes = {
-  onValKeyUp: _react2.default.PropTypes.func.isRequired
+  onFilterVal: _react2.default.PropTypes.func.isRequired
 };
 
 var SortButton = function (_Component3) {
@@ -19179,16 +19182,16 @@ var SortButton = function (_Component3) {
   }
 
   _createClass(SortButton, [{
-    key: 'sortByAscend',
-    value: function sortByAscend(e) {
+    key: '_sortByAscend',
+    value: function _sortByAscend(e) {
       e.preventDefault();
-      this.props.onClickAscend(e.target.value);
+      this.props.onSortByAscend(e.target.value);
     }
   }, {
-    key: 'sortByDescend',
-    value: function sortByDescend(e) {
+    key: '_sortByDescend',
+    value: function _sortByDescend(e) {
       e.preventDefault();
-      this.props.onClickDescend(e.target.value);
+      this.props.onSortByDescend(e.target.value);
     }
   }, {
     key: 'render',
@@ -19206,12 +19209,12 @@ var SortButton = function (_Component3) {
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.sortByAscend.bind(this), value: 'id' },
+            { onClick: this._sortByAscend.bind(this), value: 'id' },
             '昇順'
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.sortByDescend.bind(this), value: 'id' },
+            { onClick: this._sortByDescend.bind(this), value: 'id' },
             '降順'
           )
         ),
@@ -19225,12 +19228,12 @@ var SortButton = function (_Component3) {
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.sortByAscend.bind(this), value: 'name' },
+            { onClick: this._sortByAscend.bind(this), value: 'name' },
             '昇順'
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.sortByDescend.bind(this), value: 'name' },
+            { onClick: this._sortByDescend.bind(this), value: 'name' },
             '降順'
           )
         )
@@ -19242,8 +19245,8 @@ var SortButton = function (_Component3) {
 }(_react.Component);
 
 SortButton.propTypes = {
-  onClickAscend: _react2.default.PropTypes.func.isRequired,
-  onClickDescend: _react2.default.PropTypes.func.isRequired
+  onSortByAscend: _react2.default.PropTypes.func.isRequired,
+  onSortByDescend: _react2.default.PropTypes.func.isRequired
 };
 
 var data = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }, { id: 4, name: 'qux' }, { id: 5, name: 'quux' }, { id: 6, name: 'foobar' }];
