@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+let data = [
+  {id: 1, name: 'foo'},
+  {id: 2, name: 'bar'},
+  {id: 3, name: 'baz'},
+  {id: 4, name: 'qux'},
+  {id: 5, name: 'quux'},
+  {id: 6, name: 'foobar'}
+];
+
+render(
+  <App data={data} />, document.querySelector('.content')
+);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -94,12 +107,12 @@ class SortButton extends Component {
     return (
       <div>
         <div>
-          <span style={{marginRight: '8px', fontSize: '12px'}}>idでソート:</span>
+          <span style={{marginRight: '8px', fontSize: '12px'}}>keyでソート:</span>
           <button onClick={this._sortByAscend.bind(this)} value='id'>昇順</button>
           <button onClick={this._sortByDescend.bind(this)} value='id'>降順</button>
         </div>
         <div>
-          <span style={{marginRight: '8px', fontSize: '12px'}}>nameでソート:</span>
+          <span style={{marginRight: '8px', fontSize: '12px'}}>valueでソート:</span>
           <button onClick={this._sortByAscend.bind(this)} value='name'>昇順</button>
           <button onClick={this._sortByDescend.bind(this)} value='name'>降順</button>
         </div>
@@ -111,16 +124,3 @@ SortButton.propTypes = {
   onSortByAscend: React.PropTypes.func.isRequired,
   onSortByDescend: React.PropTypes.func.isRequired
 }
-
-let data = [
-  {id: 1, name: 'foo'},
-  {id: 2, name: 'bar'},
-  {id: 3, name: 'baz'},
-  {id: 4, name: 'qux'},
-  {id: 5, name: 'quux'},
-  {id: 6, name: 'foobar'}
-];
-
-render(
-  <App data={data} />, document.querySelector('.content')
-);
