@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-let data = [
-  {id: 1, name: 'foo'},
-  {id: 2, name: 'bar'},
-  {id: 3, name: 'baz'},
-  {id: 4, name: 'qux'},
-  {id: 5, name: 'quux'},
-  {id: 6, name: 'foobar'}
-];
-
-render(
-  <App data={data} />, document.querySelector('.content')
-);
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: null,
       data: props.data
     };
   }
@@ -60,7 +46,7 @@ class App extends Component {
     });
     return (
       <div>
-        <Form onFilterVal={this.handleFilterVal.bind(this)} />
+        <Form text={this.state.text} onFilterVal={this.handleFilterVal.bind(this)} />
         <SortButton
           onSortByAscend={this.handleSortByAscend.bind(this)}
           onSortByDescend={this.handleSortByDescend.bind(this)}
@@ -85,7 +71,7 @@ class Form extends Component {
     return (
       <div>
         <span style={{marginRight: '8px', fontSize: '12px'}}>キーワードで絞り込む:</span>
-        <input type='text' value={this.props.text} ref='myinput' onKeyUp={this._filterVal.bind(this)} />
+        <input defaultValue='' ref='myinput' onKeyUp={this._filterVal.bind(this)} />
       </div>
     );
   }
@@ -124,3 +110,16 @@ SortButton.propTypes = {
   onSortByAscend: React.PropTypes.func.isRequired,
   onSortByDescend: React.PropTypes.func.isRequired
 }
+
+let data = [
+  {id: 1, name: 'foo'},
+  {id: 2, name: 'bar'},
+  {id: 3, name: 'baz'},
+  {id: 4, name: 'qux'},
+  {id: 5, name: 'quux'},
+  {id: 6, name: 'foobar'}
+];
+
+render(
+  <App data={data} />, document.querySelector('.content')
+);

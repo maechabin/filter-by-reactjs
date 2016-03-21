@@ -19058,7 +19058,6 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
     _this.state = {
-      text: null,
       data: props.data
     };
     return _this;
@@ -19113,7 +19112,7 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(Form, { onFilterVal: this.handleFilterVal.bind(this) }),
+        _react2.default.createElement(Form, { text: this.state.text, onFilterVal: this.handleFilterVal.bind(this) }),
         _react2.default.createElement(SortButton, {
           onSortByAscend: this.handleSortByAscend.bind(this),
           onSortByDescend: this.handleSortByDescend.bind(this)
@@ -19160,7 +19159,7 @@ var Form = function (_Component2) {
           { style: { marginRight: '8px', fontSize: '12px' } },
           'キーワードで絞り込む:'
         ),
-        _react2.default.createElement('input', { type: 'text', value: this.props.text, ref: 'myinput', onKeyUp: this._filterVal.bind(this) })
+        _react2.default.createElement('input', { defaultValue: '', ref: 'myinput', onKeyUp: this._filterVal.bind(this) })
       );
     }
   }]);
@@ -19205,7 +19204,7 @@ var SortButton = function (_Component3) {
           _react2.default.createElement(
             'span',
             { style: { marginRight: '8px', fontSize: '12px' } },
-            'idでソート:'
+            'keyでソート:'
           ),
           _react2.default.createElement(
             'button',
@@ -19224,7 +19223,7 @@ var SortButton = function (_Component3) {
           _react2.default.createElement(
             'span',
             { style: { marginRight: '8px', fontSize: '12px' } },
-            'nameでソート:'
+            'valueでソート:'
           ),
           _react2.default.createElement(
             'button',
