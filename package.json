@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "watchify -t babelify ./src/app.js -o ./dist/bundle.js"
+    "build": "browserify -t babelify ./src/app.js -o ./dist/bundle.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Mit",
   "dependencies": {
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
@@ -17,6 +17,11 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-import": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^1.0.1",
+    "eslint-plugin-react": "^5.0.1",
     "watchify": "^3.7.0"
   }
 }
